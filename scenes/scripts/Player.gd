@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @export var walk_speed := 200.0
-@export var crouch_speed :=100
+@export var crouch_speed := 100
 
 @onready var sprite: Sprite2D = $Sprite2D
 @export var idle_texture: Texture2D
@@ -24,6 +24,7 @@ var is_crouching := false
 var normal_height := 96.0
 var crouch_height := 90.0
 
+
 func _physics_process(delta):
 	# crouch input
 	is_crouching = Input.is_action_pressed("ui_down") and is_on_floor()
@@ -31,7 +32,7 @@ func _physics_process(delta):
 	# Reset jump saat di lantai
 	if is_on_floor():
 		jump_count = 0
-		
+
 	# jump (tidak bisa saat crouch)
 	if not is_crouching and is_on_floor() and Input.is_action_just_pressed("ui_up"):
 		velocity.y = jump_velocity
@@ -60,16 +61,17 @@ func _physics_process(delta):
 
 	# Flip sprite
 	if direction > 0:
-		sprite.flip_h = false   # hadap kanan
+		sprite.flip_h = false  # hadap kanan
 	elif direction < 0:
-		sprite.flip_h = true    # hadap kiri
-	
+		sprite.flip_h = true  # hadap kiri
+
 	# ganti texture sesuai state
 	update_sprite(direction)
 	update_collision()
-	
+
 	move_and_slide()
-	
+
+
 func update_sprite(direction):
 	if is_crouching:
 		sprite.texture = crouch_texture
@@ -79,6 +81,7 @@ func update_sprite(direction):
 		sprite.texture = walk_texture
 	else:
 		sprite.texture = idle_texture
+
 
 func update_collision():
 	var shape = collision.shape as RectangleShape2D

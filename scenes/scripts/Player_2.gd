@@ -23,20 +23,31 @@ var water_gravity := 200.0
 var swim_up_speed := -200.0
 var water_drag := 0.9
 var is_in_water := false
+
+
 func enter_water():
 	is_in_water = true
+
+
 func exit_water():
 	is_in_water = false
-	
+
+
 # Ladder
 var is_on_ladder := false
+
+
 func enter_ladder():
 	is_on_ladder = true
 	velocity = Vector2.ZERO
+
+
 func exit_ladder():
 	is_on_ladder = false
 
+
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+
 
 func _physics_process(delta):
 	# FLOOR CHECK
@@ -81,14 +92,14 @@ func _physics_process(delta):
 	else:
 		shape.size.y = normal_height
 		collision.position.y = 0
-		
+
 	# SWIM
 	if is_in_water:
 		velocity.y += water_gravity * delta
 		if Input.is_action_pressed("ui_up"):
 			velocity.y = swim_up_speed
 		velocity.x *= water_drag
-		
+
 	# CLIMB
 	if is_on_ladder:
 		var vertical := Input.get_axis("ui_up", "ui_down")
