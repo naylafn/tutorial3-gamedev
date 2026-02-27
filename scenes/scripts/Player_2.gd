@@ -6,14 +6,15 @@ extends CharacterBody2D
 # Jump Physics
 @export var gravity := 900.0
 @export var jump_velocity := -350.0
-@export var fall_gravity := 1400.00
+@export var fall_gravity := 1400.0
+
 # Double Jump
 @export var max_jumps := 2
-var jump_count := 0
 
-# Crouch Physics
-@onready var collision: CollisionShape2D = $CollisionShape2D
+# variables
+var jump_count := 0
 var is_crouching := false
+
 # ukuran collision
 var normal_height := 96.0
 var crouch_height := 86.0
@@ -24,6 +25,13 @@ var swim_up_speed := -200.0
 var water_drag := 0.9
 var is_in_water := false
 
+# Ladder
+var is_on_ladder := false
+
+# onready vars (HARUS setelah semua var)
+@onready var collision: CollisionShape2D = $CollisionShape2D
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+
 
 func enter_water():
 	is_in_water = true
@@ -33,10 +41,6 @@ func exit_water():
 	is_in_water = false
 
 
-# Ladder
-var is_on_ladder := false
-
-
 func enter_ladder():
 	is_on_ladder = true
 	velocity = Vector2.ZERO
@@ -44,9 +48,6 @@ func enter_ladder():
 
 func exit_ladder():
 	is_on_ladder = false
-
-
-@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 
 func _physics_process(delta):
@@ -108,7 +109,6 @@ func _physics_process(delta):
 		var horizontal := Input.get_axis("ui_left", "ui_right")
 		velocity.x = horizontal * walk_speed * 0.5
 	else:
-		# gravity normal
 		if not is_on_floor():
 			if velocity.y < 0:
 				velocity.y += gravity * delta
@@ -123,29 +123,23 @@ func _physics_process(delta):
 			sprite.play("climb")
 		else:
 			sprite.play("climb_idle")
-
 	elif not is_on_floor():
 		if velocity.y < 0:
 			sprite.play("jump")
 		else:
 			sprite.play("fall")
-
 	elif direction != 0:
 		sprite.play("walk")
-
 	else:
 		sprite.play("stand")
 
-	# APPLY MOVEMENT
 	move_and_slide()
 
 
 func update_animation(direction):
 	if not is_on_floor():
 		sprite.play("jump")
-
 	elif direction != 0:
 		sprite.play("walk")
-
 	else:
 		sprite.play("stand")
