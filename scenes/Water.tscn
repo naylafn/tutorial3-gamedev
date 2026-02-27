@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://wntm7aud2g3b"]
+
+[ext_resource type="Texture2D" uid="uid://ccurrfub23csu" path="res://assets/tilemap.png" id="1_h7np4"]
+[ext_resource type="Script" uid="uid://bpqug74s0ld0s" path="res://scenes/scripts/Water.gd" id="1_vwe2q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vwe2q"]
+atlas = ExtResource("1_h7np4")
+region = Rect2(246, 18, 19, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_45jge"]
+atlas = ExtResource("1_h7np4")
+region = Rect2(246, 38, 19, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_euuk4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vwe2q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_45jge")
+}],
+"loop": true,
+"name": &"water",
+"speed": 1.5
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8rcam"]
+size = Vector2(211.5, 27)
+
+[node name="Water" type="Area2D" unique_id=955396543]
+script = ExtResource("1_vwe2q")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2032263973]
+scale = Vector2(3.8, 3.8)
+sprite_frames = SubResource("SpriteFrames_euuk4")
+animation = &"water"
+frame_progress = 0.29002446
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=120622197]
+position = Vector2(0, 19)
+shape = SubResource("RectangleShape2D_8rcam")
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="." unique_id=2087925091]
+position = Vector2(67, 0)
+scale = Vector2(3.8, 3.8)
+sprite_frames = SubResource("SpriteFrames_euuk4")
+animation = &"water"
+frame_progress = 0.38782376
+
+[node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="." unique_id=1988498397]
+position = Vector2(-67, 0)
+scale = Vector2(3.8, 3.8)
+sprite_frames = SubResource("SpriteFrames_euuk4")
+animation = &"water"
+frame_progress = 0.17097594
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

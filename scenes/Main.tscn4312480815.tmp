@@ -3,7 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://ds60n6krsavle" path="res://scenes/Ground.tscn" id="1_elqb8"]
 [ext_resource type="PackedScene" uid="uid://cfsxflm30wefy" path="res://scenes/Player_2.tscn" id="2_rvslj"]
 [ext_resource type="PackedScene" uid="uid://wntm7aud2g3b" path="res://scenes/Water.tscn" id="3_0bbpv"]
-[ext_resource type="PackedScene" uid="uid://ces52vru7500r" path="res://scenes/Ladder.tscn" id="4_rarhs"]
 
 [node name="Root" type="Node2D" unique_id=918599496]
 
@@ -25,7 +24,3 @@ rotation = 1.5707964
 
 [node name="Water" parent="." unique_id=955396543 instance=ExtResource("3_0bbpv")]
 position = Vector2(574, 323)
-
-[node name="Ladder" parent="." unique_id=1231094591 instance=ExtResource("4_rarhs")]
-z_index = -1
-position = Vector2(851, 95)
